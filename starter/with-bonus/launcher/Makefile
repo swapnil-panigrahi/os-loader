@@ -1,14 +1,25 @@
 #Compile the launch.c by linking it with the lib_simpleloader.so
-IDIR =starter/with-bonus/loader/
-_DEPS = loader.h
-DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+# Makefile for compiling launch.c using lib_simpleloader.so
 
-all : launch
+# Compiler settings
+CC := gcc
+CFLAGS := -Wall -Wextra -I../loader
+LDFLAGS := -L../loader -Wl,-rpath=../loader
+LDLIBS := ../loader/lib_simpleloader.so
 
-launch : launch.o lib_simpleloader
-	gcc -o launch launch.o -L/starter/with-bonus/loader -llib_simpleloader
+# Source and output files
+SRC := launch.c
+OUT := launch
 
-launch.o: launch.c $(_DEPS)
-	gcc -o launch.o launch.c
+# Build rule
+all: $(OUT)
+
+$(OUT): $(SRC)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS)
+
+clean:
+	rm -f $(OUT)
+
+.PHONY: all clean
 
 #Provide the command for cleanup
