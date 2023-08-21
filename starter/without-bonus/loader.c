@@ -41,13 +41,11 @@ void load_and_run_elf(char** exe) {
   }
 
   // 3. Allocate memory of the size "p_memsz" using mmap function and then copy the segment content
-  void *segment = mmap((void*)(uintptr_t)phdr_entry.p_vaddr, phdr_entry.p_memsz, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, fd, phdr_entry.p_offset);
-  
+  void *segment = mmap(NULL, phdr_entry.p_memsz, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, 0, 0);
   read(fd,segment,phdr_entry.p_filesz);
-
   // 4. Navigate to the entrypoint address into the segment loaded in the memory in above step
   // 5. Typecast the address to that of function pointer matching "_start" method in fib.c.
-  int (*_start)(void) =(int(*)(void))((char *)segment + (size_t)(ehdr.e_entry - phdr_entry.p_vaddr));
+  int (*_start)() =(int(*)())(segment + (ehdr.e_entry - phdr_entry.p_vaddr));
   // 6. Call the "_start" method and print the value returned from the "_start"
   int result = _start();
   printf("User _start return value = %d\n",result);
