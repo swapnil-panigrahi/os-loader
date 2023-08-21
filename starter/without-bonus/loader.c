@@ -1,5 +1,4 @@
 #include "loader.h"
-#include <errno.h>
 
 Elf32_Ehdr *ehdr;
 Elf32_Phdr *phdr;
