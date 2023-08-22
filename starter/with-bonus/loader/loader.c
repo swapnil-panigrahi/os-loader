@@ -18,6 +18,10 @@ void loader_cleanup() {
  */
 void load_and_run_elf(char** exe) {
   fd = open(exe[0], O_RDONLY);
+  if (fd==-1){
+    perror("Couldn't open file");
+    exit(0);
+  }
   // 1. Load entire binary content into the memory from the ELF file.
   Elf32_Ehdr ehdr;
   read(fd,&ehdr,sizeof(Elf32_Ehdr));
@@ -40,6 +44,11 @@ void load_and_run_elf(char** exe) {
 
   // 3. Allocate memory of the size "p_memsz" using mmap function and then copy the segment content
   void *segment = mmap(NULL, phdr_entry.p_memsz, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, 0, 0);
+  if (segment==MAP_FAILED){
+    perror("Run the program with sudo!");
+    exit(0);
+  }
+
   read(fd,segment,phdr_entry.p_filesz);
   // 4. Navigate to the entrypoint address into the segment loaded in the memory in above step
   // 5. Typecast the address to that of function pointer matching "_start" method in fib.c.
