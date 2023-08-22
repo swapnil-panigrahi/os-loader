@@ -1,29 +1,22 @@
-.PHONY: all clean
-
-BIN_DIR := bin
-LOADER_TARGET := loader
-LAUNCHER_TARGET := launch
-TEST_TARGET := test
-
-all: $(BIN_DIR)/$(LOADER_TARGET) $(BIN_DIR)/$(LAUNCHER_TARGET) $(BIN_DIR)/$(TEST_TARGET)
+all: bin/loader bin/launcher bin/test
 	@echo "Build done"
 
-$(BIN_DIR)/$(LOADER_TARGET):
+bin/loader:
 	@$(MAKE) -C loader
 
-$(BIN_DIR)/$(LAUNCHER_TARGET):
+bin/launcher:
 	@$(MAKE) -C launcher
 
-$(BIN_DIR)/$(TEST_TARGET):
+bin/test:
 	@$(MAKE) -C test
 
-	@mkdir -p $(BIN_DIR)
-	@mv test/fib $(BIN_DIR)
-	@mv launcher/$(LAUNCHER_TARGET) $(BIN_DIR)
+	@mkdir -p bin
+	@mv test/fib bin
+	@mv launcher/launch bin
 	@echo "Files moved"
 
 clean:
-	@rm -rf $(BIN_DIR)
+	@rm -rf bin
 	@$(MAKE) -C loader clean
 	@$(MAKE) -C launcher clean
 	@$(MAKE) -C test clean
