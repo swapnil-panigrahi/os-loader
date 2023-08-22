@@ -15,7 +15,7 @@ OUT := launch
 all: $(OUT)
 
 $(OUT): $(SRC)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -m32 -o $@ $< $(LDLIBS)
 
 clean:
 	rm -f $(OUT)

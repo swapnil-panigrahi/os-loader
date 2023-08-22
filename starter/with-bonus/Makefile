@@ -18,7 +18,7 @@ $(BIN_DIR)/$(TEST_TARGET):
 	@$(MAKE) -C test
 
 	@mkdir -p $(BIN_DIR)
-	@mv loader/lib_simpleloader.so $(BIN_DIR)
+	@mv test/fib $(BIN_DIR)
 	@mv launcher/$(LAUNCHER_TARGET) $(BIN_DIR)
 	@echo "Files moved"
 

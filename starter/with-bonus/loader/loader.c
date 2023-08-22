@@ -18,7 +18,6 @@ void loader_cleanup() {
  */
 void load_and_run_elf(char** exe) {
   fd = open(exe[0], O_RDONLY);
-  unsigned char dump=0;
   // 1. Load entire binary content into the memory from the ELF file.
   Elf32_Ehdr ehdr;
   read(fd,&ehdr,sizeof(Elf32_Ehdr));
