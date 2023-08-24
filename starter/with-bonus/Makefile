@@ -11,8 +11,8 @@ bin/test:
 	@$(MAKE) -C test
 
 	@mkdir -p bin
-	@mv test/fib bin
 	@mv launcher/launch bin
+	@mv loader/lib_simpleloader.so bin
 	@echo "Files moved"
 
 clean:
