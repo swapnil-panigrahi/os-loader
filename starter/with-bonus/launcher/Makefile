@@ -3,7 +3,7 @@
 all: launch
 
 launch: launch.c
-	gcc -I../loader -L../loader -Wl,-rpath=../bin -m32 -o $@ $< ../bin/lib_simpleloader.so
+	gcc -I../loader -L../loader -Wl,-rpath=../loader -m32 -o $@ $< ../bin/lib_simpleloader.so
 
 #Provide the command for cleanup
 
